@@ -1,6 +1,5 @@
 ---
 # tasks file for docker_node
-
 - name: change apt perms
   shell: chown _apt /etc/apt/trusted.gpg
 
@@ -26,5 +25,12 @@
 - name: Install docker
   apt:
     name: docker-ce
+
+- name: disable unwanted services
+  shell: systemctl disable exim4 avahi-daemon
+
+- name: Give node a meaningful name
+  shell: echo "{{inventory_hostname}}" > /etc/hostname
+
 
 
