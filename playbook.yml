@@ -1,0 +1,7 @@
+---
+# tasks file for docker_node
+- name: Install docker
+  hosts: node1
+  roles:
+    - role: docker_node
+

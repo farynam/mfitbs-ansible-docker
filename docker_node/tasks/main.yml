@@ -1,0 +1,30 @@
+---
+# tasks file for docker_node
+
+- name: change apt perms
+  shell: chown _apt /etc/apt/trusted.gpg
+
+- name: Install requirements
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg2
+
+- name: Import certs
+  shell: curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+
+- name: Add repository
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
+- name: update
+  apt:
+    update_cache: yes
+
+- name: Install docker
+  apt:
+    name: docker-ce
+
+
